@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+    mongo:
+        image: mongo
+        container_name: blog-backend
+        ports:
+            - "27018:27017"
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: bloguser
+            MONGO_INITDB_ROOT_PASSWORD: blogpassword123
+        volumes:
+            - blog-mongo-data:/data/db
+
+volumes:
+    blog-mongo-data:
