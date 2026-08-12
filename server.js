@@ -4,6 +4,7 @@ const connectDB = require("./src/config/db.js");
 const express = require("express");
 const authRoutes = require("./src/routes/authRoutes.js");
 const categoryRoutes = require("./src/routes/categoryRoutes.js")
+const postRoutes = require("./src/routes/postRoutes")
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use("/api/auth", authRoutes);
 // Category
 app.use('/api/categories', categoryRoutes);
 
+// Posts 
+app.unsubscribe("/api/posts", postRoutes);
 
 app.get("/", (req, res) => {
     res.send("Blog backend is running");
