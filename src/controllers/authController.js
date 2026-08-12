@@ -71,5 +71,22 @@ const getProfile = async (req, res) => {
     }
 };
 
+const createCategory = async (req, res) => {
+    try {
+        const category = createCategoryService(req.body)
+        return res.status(201).json({
+            success: true,
+            message: "Category created successfully.",
+            data: category,
+        })
+    } catch (error) {
+        return res.status(400).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
+
+
 
 module.exports = { signup, login, getProfile, createCategory };

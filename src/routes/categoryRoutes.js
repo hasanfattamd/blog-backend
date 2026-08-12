@@ -3,7 +3,7 @@ const router = express.Router();
 const authenticate = require("../middleware/authMiddleware");
 const authorize = require("../middleware/authorizeMiddleware");
 const validate = require("../middleware/validate");
-const { categoryCreateDto } = require("../dto/categoryDto.js");
+const categoryCreateDto = require("../dto/categoryDto.js");
 const {createCategory} = require("../controllers/categoryController");
 
 router.post(

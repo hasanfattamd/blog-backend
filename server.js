@@ -12,8 +12,11 @@ app.use(express.json());
 
 // Auth 
 app.use("/api/auth", authRoutes);
+
+// Category
 app.use('/api/categories', categoryRoutes);
-// route
+
+
 app.get("/", (req, res) => {
     res.send("Blog backend is running");
 });
