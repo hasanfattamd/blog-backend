@@ -4,10 +4,12 @@ const {
     getProfileService,
     createCategoryService,
 } = require("../services/authService");
+const sendEmail = require("../helpers/sendEmail")
 
 const signup = async (req, res) => {
     try {
-        const newUser = await signupUser(req.body);
+        const { newUser, verificationToken } = await signupUser(req.body);
+        const verificationLink = `http://localhost:8000/api/auth/verify-email?token=${verificationToken}`;
         return res.status(201).json({
             success: true,
             message: "User registered successfully",
@@ -60,7 +62,7 @@ const getProfile = async (req, res) => {
                 name: user.name,
                 email: user.email,
                 role: user.role,
-                isVerified: user.idsVerified,
+                isVerified: user.isVerified,
             },
         });
     } catch (error) {
@@ -73,7 +75,7 @@ const getProfile = async (req, res) => {
 
 const createCategory = async (req, res) => {
     try {
-        const category = createCategoryService(req.body)
+        const category = await createCategoryService(req.body)
         return res.status(201).json({
             success: true,
             message: "Category created successfully.",
@@ -81,8 +83,8 @@ const createCategory = async (req, res) => {
         })
     } catch (error) {
         return res.status(400).json({
-            success:false,
-            message:error.message
+            success: false,
+            message: error.message
         })
     }
 }

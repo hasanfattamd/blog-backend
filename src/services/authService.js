@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/userModel");
 const generateToken = require("../helpers/generateTokens");
+const { generateVerificationToken } = require('../helpers/tokenHelper');
 
 const signupUser = async ({ name, email, password }) => {
     const existingUser = await User.findOne({ email });
@@ -8,13 +9,15 @@ const signupUser = async ({ name, email, password }) => {
         throw new Error("User already exists with this email.");
     }
     const hashedPassword = await bcrypt.hash(password, 10);
+    const { token, hashedToken } = generateVerificationToken()
     const newUser = await User.create({
         name,
         email,
         password: hashedPassword,
         role: "user",
+        emailVerificationToken: hashedToken
     });
-    return newUser;
+    return { newUser, verificationToken: token };
 };
 
 const loginUser = async ({ email, password }) => {

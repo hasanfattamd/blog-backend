@@ -8,5 +8,5 @@ const createPostService = async ({ title, content, category, author }) => {
     const post = Post.create({ title, content, category, author })
     return post;
 }
-z
+
 module.exports = createPostService

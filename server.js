@@ -18,7 +18,7 @@ app.use("/api/auth", authRoutes);
 app.use('/api/categories', categoryRoutes);
 
 // Posts 
-app.unsubscribe("/api/posts", postRoutes);
+app.use("/api/posts", postRoutes);
 
 app.get("/", (req, res) => {
     res.send("Blog backend is running");
